@@ -1,44 +1,26 @@
 require ('../server/config/config')
+
+const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
 const port = process.env.PORT
 const bodyParser = require('body-parser')
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
-//GET
-app.get('/alumnos', (req, res) => {
-    res.json('GET Alumnos')
-})
+app.use(require('./controllers/usuario'))
 
-//POST
-app.post('/alumno', (req, res) => {
-    let body = req.body;
 
-    if (body.nombre === undefined) {
-        res.status(400).json({
-            ok: false,
-            message: 'El nombre es requerido'
-        })
+
+mongoose.connect('mongodb://localhost:27017/activos',(err, res)=>{
+    if(err){
+        throw err;
     }
     else {
-        res.json({ body })
-
+        console.log("DB Connected");
     }
+});
 
-})
-
-//PUT
-app.put('/alumno/:id', (req, res) => {
-    let id = req.params.id;
-    res.json(`Update alumno ${id}`)
-})
-
-//DELETE
-app.delete('/alumno/:id', (req, res) => {
-    let id = req.params.id
-    res.json(`Delete alumno ${id}`)
-})
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
