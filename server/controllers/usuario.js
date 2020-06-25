@@ -6,10 +6,7 @@ const app = express()
 const Usuario = require('../models/usuario');
 const usuario = require('../models/usuario');
 
-
-
-
-//GET
+//GET Users
 app.get('/usuarios', (req, res) => {
 
     let from = Number(req.query.from || 0);
@@ -32,6 +29,26 @@ app.get('/usuarios', (req, res) => {
 
         })
     //res.json('GET usuario')
+})
+
+
+//GET User
+app.get('/usuario/:id', (req, res) => {
+    let id = req.params.id
+
+    Usuario.findById(id, (err, usuario) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+
+        res.json({
+            ok: true,
+            usuario: usuario
+        })
+    })
 })
 
 //POST

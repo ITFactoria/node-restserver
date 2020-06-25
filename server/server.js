@@ -11,8 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(require('./controllers/usuario'))
 
-
-
 mongoose.connect('mongodb://localhost:27017/activos',(err, res)=>{
     if(err){
         throw err;
