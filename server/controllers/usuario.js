@@ -6,6 +6,17 @@ const app = express()
 const Usuario = require('../models/usuario');
 const usuario = require('../models/usuario');
 
+//TEST
+app.get('/', (req, res) => {
+
+    res.json({
+        ok: true,
+        message: 'Hola Mundo'
+    })
+})
+
+
+
 //GET Users
 app.get('/usuarios', (req, res) => {
 
